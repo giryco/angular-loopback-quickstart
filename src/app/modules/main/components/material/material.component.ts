@@ -4,19 +4,19 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 /**
  * Components
  */
-import { ParticipantDialogComponent } from './participant-dialog/participant-dialog.component';
+import { MaterialDialogComponent } from './material-dialog/material-dialog.component';
 
 /**
  * Services
  */
-import { CrudService } from './../../../shared/services/parse/crud.service';
+import { CrudService } from '../../../shared/services/loopback/crud.service';
 
 @Component({
-    selector: 'app-participant',
-    templateUrl: './participant.component.html',
-    styleUrls: ['./participant.component.css']
+    selector: 'app-material',
+    templateUrl: './material.component.html',
+    styleUrls: ['./material.component.css']
 })
-export class ParticipantComponent implements OnInit {
+export class MaterialComponent implements OnInit {
     paramsToTableData: any;
     constructor(
         private _crud: CrudService,
@@ -31,7 +31,7 @@ export class ParticipantComponent implements OnInit {
     makeList = () => {
         this.paramsToTableData = {
             toolbar: {
-                title: 'Participantes',
+                title: 'Materiais',
                 delete: {
                     icon: 'delete',
                     field: 'objectId',
@@ -47,16 +47,19 @@ export class ParticipantComponent implements OnInit {
                 }
             },
             list: {
-                route: 'Participant',
+                route: 'Materiais',
                 crudParams: {
                     order: [{
-                        field: 'name',
+                        field: 'descricao',
                         order: 'asc'
                     }]
                 },
                 columns: [{
-                    attribute: 'name',
-                    header: 'Nome'
+                    attribute: 'cod_produto',
+                    header: 'Código'
+                }, {
+                    attribute: 'dsc_produto',
+                    header: 'Descrição'
                 }],
                 actionButton: [{
                     type: 'icon',
@@ -77,7 +80,7 @@ export class ParticipantComponent implements OnInit {
 
     tableDataOutputReceiver = (e) => {
         if (e.trigger === 'add') {
-            const dialogRef = this._dialog.open(ParticipantDialogComponent, {
+            const dialogRef = this._dialog.open(MaterialDialogComponent, {
                 width: '95%'
             });
 
@@ -89,7 +92,7 @@ export class ParticipantComponent implements OnInit {
         }
 
         if (e.trigger === 'listEdit') {
-            const dialogRef = this._dialog.open(ParticipantDialogComponent, {
+            const dialogRef = this._dialog.open(MaterialDialogComponent, {
                 width: '95%',
                 data: e.response
             });
@@ -104,7 +107,7 @@ export class ParticipantComponent implements OnInit {
         if (e.trigger === '_delete') {
             this._crud
             .delete({
-                route: 'Participant',
+                route: 'Materiais',
                 containedIn: [{
                     property: 'objectId',
                     valueArray: e.response.arrayToDelete

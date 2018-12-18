@@ -4,7 +4,7 @@ import {
 
 import {
     CrudService
-} from './../services/parse/crud.service';
+} from './../services/loopback/crud.service';
 
 
 export function ValidateUniqueValue(valueToIgnoreIfUpdate: string, collectionAndField: any, _crud: CrudService) {
@@ -29,7 +29,7 @@ export function ValidateUniqueValue(valueToIgnoreIfUpdate: string, collectionAnd
                     }
                 }
             }, err => {
-                this._auth.handleParseError(err, '');
+                this._auth.handleError(err, '');
             });
         }, 500);
         return null;

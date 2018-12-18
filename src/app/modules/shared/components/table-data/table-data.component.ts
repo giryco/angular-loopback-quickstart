@@ -5,8 +5,8 @@ import { MatDialog } from '@angular/material';
  * Services
  */
 import { ArrayService } from '../../services/array.service';
-import { AuthenticationService } from './../../services/parse/authentication.service';
-import { CrudService } from '../../services/parse/crud.service';
+import { AuthenticationService } from './../../services/loopback/authentication.service';
+import { CrudService } from '../../services/loopback/crud.service';
 import { SearchDialogComponent } from '../search-dialog/search-dialog.component';
 
 @Component({
@@ -102,17 +102,24 @@ export class TableDataComponent implements OnChanges {
   }
 
   setListContentByParseRoute = () => {
-    let group, limit, order, search, skip;
+    let group, limit, order, search, skip, where;
     search = undefined;
 
     if (this.params.list.crudParams) {
       this.params.list.crudParams.group ? group = this.params.list.crudParams.group : group = undefined;
       this.params.list.crudParams.order ? order = this.params.list.crudParams.order : order = undefined;
+      this.params.list.crudParams.where ? where = this.params.list.crudParams.where : where = undefined;
     }
 
     this.pagination ? skip = (this.currentPage - 1) * this.qtSelected : skip = undefined;
     this.qtSelected ? limit = this.qtSelected : limit = undefined;
-    if (this.searchString) { search = {keys: ['name'], regex: [this.searchString]}; }
+
+    if (this.searchString && this.searchString !== '') {
+      search =  {
+                  properties: this.params.toolbar.search.propertiesToSearch,
+                  value: this.searchString
+                };
+    }
 
     this._crud.readFromRoute({
       route: this.params.list.route,
@@ -120,7 +127,8 @@ export class TableDataComponent implements OnChanges {
       skip: skip,
       match: search,
       group: group,
-      order: order
+      order: order,
+      where: where,
     })
     .then(res => {
       if (!res['response']) {
@@ -153,13 +161,13 @@ export class TableDataComponent implements OnChanges {
           this.checkPagination();
           this.setListStructure();
         }, err => {
-          this._auth.handleParseError(err, '');
+          this._auth.handleError(err, '');
         });
       }
 
       this.setUncheckAllToDelete();
     }, err => {
-      this._auth.handleParseError(err, '');
+      this._auth.handleError(err, '');
     });
   }
 

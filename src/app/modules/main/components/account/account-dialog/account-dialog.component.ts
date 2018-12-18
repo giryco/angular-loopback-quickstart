@@ -5,8 +5,8 @@ import { MatSnackBar, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 /**
  * Services
  */
-import { AuthenticationService } from './../../../../shared/services/parse/authentication.service';
-import { CrudService } from './../../../../shared/services/parse/crud.service';
+import { AuthenticationService } from './../../../../shared/services/loopback/authentication.service';
+import { CrudService } from './../../../../shared/services/loopback/crud.service';
 
 /**
  * Validators
@@ -14,14 +14,14 @@ import { CrudService } from './../../../../shared/services/parse/crud.service';
 import { ValidateCpf } from 'src/app/modules/shared/validators/cpf.validator';
 
 @Component({
-  selector: 'app-participant-dialog',
-  templateUrl: './participant-dialog.component.html',
-  styleUrls: ['./participant-dialog.component.css']
+  selector: 'app-account-dialog',
+  templateUrl: './account-dialog.component.html',
+  styleUrls: ['./account-dialog.component.css']
 })
-export class ParticipantDialogComponent implements OnInit {
+export class AccountDialogComponent implements OnInit {
   array: any;
   competitionId: number;
-  participantDialogForm: FormGroup;
+  accountDialogForm: FormGroup;
   roles: any;
   title: string;
   userForm: FormGroup;
@@ -36,14 +36,14 @@ export class ParticipantDialogComponent implements OnInit {
     private _auth: AuthenticationService,
     private _crud: CrudService,
     private matsnackbar: MatSnackBar,
-    public dialogRef: MatDialogRef<ParticipantDialogComponent>,
+    public dialogRef: MatDialogRef<AccountDialogComponent>,
     private fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public data: any,
   ) { }
 
   ngOnInit() {
-    this.participantDialogForm = this.fb.group({
-      'participantGroup': this.fb.group({
+    this.accountDialogForm = this.fb.group({
+      'accountGroup': this.fb.group({
         'name': [null, [Validators.maxLength(145), Validators.required]],
         'cpf': [null, [ValidateCpf]],
         'rg': [null, [Validators.required]],
@@ -61,11 +61,11 @@ export class ParticipantDialogComponent implements OnInit {
       this.paramToSearch = this.data.id;
       this.submitToCreate = false;
       this.submitToUpdate = true;
-      this.title = 'Alterar Participante';
+      this.title = 'Alterar Conta';
       this.submitButton = 'Atualizar';
 
       this._crud.readFromRoute({
-        route: 'Participant',
+        route: 'Account',
         order: ['objectId', 'desc'],
         where: [{
           property: 'objectId',
@@ -74,14 +74,14 @@ export class ParticipantDialogComponent implements OnInit {
       }).then(res => {
         const obj = res['response'][0]['attributes'];
 
-        this.participantDialogForm.get('name').setValue(obj.name);
+        this.accountDialogForm.get('name').setValue(obj.name);
       }, err => {
-        this._auth.handleParseError(err, '');
+        this._auth.handleError(err, '');
       });
     } else {
       this.submitToCreate = true;
       this.submitToUpdate = false;
-      this.title = 'Cadastrar Participante';
+      this.title = 'Cadastrar Conta';
       this.submitButton = 'Salvar';
     }
     /*update end*/
@@ -92,15 +92,15 @@ export class ParticipantDialogComponent implements OnInit {
     }).then(res => {
       this.roles = res['response'][0]['attributes'];
     }, err => {
-      this._auth.handleParseError(err, '');
+      this._auth.handleError(err, '');
     });
   }
 
-  onParticipantDialogSubmit = () => {
+  onAccountDialogSubmit = () => {
     if (this.submitToUpdate) {
       const params = {
-        route: 'Participant',
-        objectToUpdate: this.participantDialogForm.value,
+        route: 'Account',
+        objectToUpdate: this.accountDialogForm.value,
         where: {
           property: 'objectId',
           value: this.data.id
@@ -116,23 +116,23 @@ export class ParticipantDialogComponent implements OnInit {
 
           this.dialogRef.close({
             response: 'updated',
-            message: 'ParticipantDialogForm was updated'
+            message: 'AccountDialogForm was updated'
           });
         }, err => {
-          this._auth.handleParseError(err, '');
+          this._auth.handleError(err, '');
         });
     } else {
-      console.log(this.participantDialogForm.value);
+      console.log(this.accountDialogForm.value);
       const paramsToUser = {
         route: 'User',
-        objectToCreateUser: this.participantDialogForm.value.userGroup
+        objectToCreateUser: this.accountDialogForm.value.userGroup
       };
 
-      const paramsToParticipant = {
-        route: 'Participant',
-        objectToCreateUser: this.participantDialogForm.value.participantGroup
+      const paramsToAccount = {
+        route: 'Account',
+        objectToCreateUser: this.accountDialogForm.value.accountGroup
       };
-      console.log(paramsToParticipant);
+      console.log(paramsToAccount);
       // this._crud.create(paramsToUser)
       //   .then(res => {
       //     this.matsnackbar.open(res['message'], '', {
@@ -141,10 +141,10 @@ export class ParticipantDialogComponent implements OnInit {
 
       //     this.dialogRef.close({
       //       response: 'created',
-      //       message: 'ParticipantDialogForm created new data'
+      //       message: 'AccountDialogForm created new data'
       //     });
       //   }, err => {
-      //     this._auth.handleParseError(err, '');
+      //     this._auth.handleError(err, '');
       //   });
     }
   }

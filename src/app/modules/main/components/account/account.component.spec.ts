@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PeriodDialogComponent } from './period-dialog.component';
+import { AccountComponent } from './account.component';
 
-describe('PeriodDialogComponent', () => {
-  let component: PeriodDialogComponent;
-  let fixture: ComponentFixture<PeriodDialogComponent>;
+describe('AccountComponent', () => {
+  let component: AccountComponent;
+  let fixture: ComponentFixture<AccountComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PeriodDialogComponent ]
+      declarations: [ AccountComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PeriodDialogComponent);
+    fixture = TestBed.createComponent(AccountComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

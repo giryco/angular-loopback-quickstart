@@ -4,11 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 /**
  * Components
  */
-import { ConfigurationComponent } from './components/configuration/configuration.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MainComponent } from './main.component';
-import { OccupationComponent } from './components/occupation/occupation.component';
-import { ParticipantComponent } from './components/participant/participant.component';
+import { MaterialComponent } from './components/material/material.component';
+import { ContractComponent } from './components/contract/contract.component';
+import { AccountComponent } from './components/account/account.component';
 
 const routes: Routes = [{
   path: '', component: MainComponent, children: [{
@@ -19,14 +19,14 @@ const routes: Routes = [{
     path: 'dashboard',
     component: DashboardComponent
   }, {
-    path: 'participant',
-    component: ParticipantComponent
+    path: 'account',
+    component: AccountComponent
   }, {
-    path: 'occupation',
-    component: OccupationComponent
+    path: 'contract',
+    component: ContractComponent
   }, {
-    path: 'configuration',
-    component: ConfigurationComponent
+    path: 'material',
+    component: MaterialComponent
   }]
 }];
 

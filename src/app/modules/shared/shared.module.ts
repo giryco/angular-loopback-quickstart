@@ -23,8 +23,8 @@ import { NumberToLetterPipe } from './pipes/number-to-letter.pipe';
  * Services
  */
 import { ArrayService } from './services/array.service';
-import { AuthenticationService } from './services/parse/authentication.service';
-import { CrudService } from './services/parse/crud.service';
+import { AuthenticationService } from './services/loopback/authentication.service';
+import { CrudService } from './services/loopback/crud.service';
 import { ObjectService } from './services/object.service';
 
 /**

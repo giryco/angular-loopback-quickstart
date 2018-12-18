@@ -1,8 +1,8 @@
 <h1 mat-dialog-title>{{title}}</h1>
 
 <div mat-dialog-content>
-  <form [formGroup]="participantDialogForm">
-    <fieldset formGroupName="participantGroup">
+  <form [formGroup]="accountDialogForm">
+    <fieldset formGroupName="accountGroup">
       <mat-form-field>
         <input matInput formControlName="name" placeholder="Nome">
       </mat-form-field>
@@ -26,7 +26,7 @@
       </mat-form-field>
     </fieldset>
 
-    <fieldset formGroupName="participantGroup">
+    <fieldset formGroupName="accountGroup">
       <mat-form-field>
         <input matInput formControlName="mobile" mask = "(00) 00000-0000" placeholder="Telefone">
       </mat-form-field>
@@ -41,5 +41,5 @@
 </div>
 
 <div mat-dialog-actions>
-  <button mat-raised-button (click)="onParticipantDialogSubmit()" [disabled]="participantDialogForm.invalid">{{this.submitButton}}</button>
+  <button mat-raised-button (click)="onAccountDialogSubmit()" [disabled]="accountDialogForm.invalid">{{this.submitButton}}</button>
 </div>

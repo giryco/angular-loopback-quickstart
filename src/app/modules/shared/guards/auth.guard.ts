@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 
 /**
  * Services
  */
-import { AuthenticationService } from './../services/parse/authentication.service';
+import { AuthenticationService } from './../services/loopback/authentication.service';
 import { MatSnackBar } from '@angular/material';
 
 /**

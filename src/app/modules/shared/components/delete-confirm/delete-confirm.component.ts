@@ -3,8 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA, MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
 /*Services*/
-import { CrudService } from './../../services/parse/crud.service';
-import { AuthenticationService } from './../../services/parse/authentication.service';
+import { CrudService } from './../../services/loopback/crud.service';
+import { AuthenticationService } from './../../services/loopback/authentication.service';
 
 @Component({
   selector: 'app-delete-confirm',
@@ -48,7 +48,7 @@ export class DeleteConfirmComponent implements OnInit {
         duration: 3000
       });
     }, err => {
-      this._auth.handleParseError(err, '');
+      this._auth.handleError(err, '');
     });
 
     this.dialogRef.close(true);

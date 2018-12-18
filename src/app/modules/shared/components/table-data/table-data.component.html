@@ -5,7 +5,7 @@
         {{title}}
       </th>
       
-      <th *ngIf="search" id="toolbar-search">
+      <th *ngIf="search && params.toolbar && params.toolbar.search && params.toolbar.search.propertiesToSearch" id="toolbar-search">
         <!-- <mat-icon (click)="onClickAdvancedSearch()">{{search.icon}}</mat-icon> -->
         <mat-form-field>
             <mat-icon matPrefix>{{search.icon}}</mat-icon>

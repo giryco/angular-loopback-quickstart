@@ -5,22 +5,20 @@ import { CommonModule } from '@angular/common';
  * MOdules
  */
 import { MainRoutingModule } from './main-routing.module';
+import {NgxMaskModule} from 'ngx-mask';
 import { SharedModule } from '../shared/shared.module';
 
 /**
  * Components
  */
-import { AreaDialogComponent } from './components/configuration/area-dialog/area-dialog.component';
-import { ConfigurationComponent } from './components/configuration/configuration.component';
+import { AccountComponent } from './components/account/account.component';
+import { AccountDialogComponent } from './components/account/account-dialog/account-dialog.component';
+import { ContractComponent } from './components/contract/contract.component';
+import { ContractDialogComponent } from './components/contract/contract-dialog/contract-dialog.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MainComponent } from './main.component';
-import {NgxMaskModule} from 'ngx-mask';
-import { OccupationComponent } from './components/occupation/occupation.component';
-import { ParticipantComponent } from './components/participant/participant.component';
-import { ParticipantDialogComponent } from './components/participant/participant-dialog/participant-dialog.component';
-import { PeriodDialogComponent } from './components/configuration/period-dialog/period-dialog.component';
-import { RoleDialogComponent } from './components/configuration/role-dialog/role-dialog.component';
-import { TaskDialogComponent } from './components/configuration/task-dialog/task-dialog.component';
+import { MaterialComponent } from './components/material/material.component';
+import { MaterialDialogComponent } from './components/material/material-dialog/material-dialog.component';
 
 @NgModule({
   imports: [
@@ -30,22 +28,19 @@ import { TaskDialogComponent } from './components/configuration/task-dialog/task
     SharedModule
   ],
   declarations: [
-    AreaDialogComponent,
-    ConfigurationComponent,
+    AccountComponent,
+    AccountDialogComponent,
+    ContractComponent,
+    ContractDialogComponent,
     DashboardComponent,
     MainComponent,
-    OccupationComponent,
-    ParticipantComponent,
-    ParticipantDialogComponent,
-    PeriodDialogComponent,
-    RoleDialogComponent,
-    TaskDialogComponent,
+    MaterialComponent,
+    MaterialDialogComponent
   ],
   entryComponents: [
-    AreaDialogComponent,
-    ParticipantDialogComponent,
-    PeriodDialogComponent,
-    RoleDialogComponent,
+    AccountDialogComponent,
+    ContractDialogComponent,
+    MaterialDialogComponent
   ]
 })
 export class MainModule { }

@@ -10,7 +10,7 @@ import {
 /**
  * Services
  */
-import { AuthenticationService } from './../shared/services/parse/authentication.service';
+import { AuthenticationService } from './../shared/services/loopback/authentication.service';
 
 @Component({
   selector: 'app-main',
@@ -29,17 +29,17 @@ export class MainComponent implements OnInit {
     icon: 'home',
     link: ['dashboard']
   }, {
-    name: 'Participantes',
+    name: 'Plano de Contas',
     icon: 'people',
-    link: ['participant']
+    link: ['account']
   }, {
-    name: 'Ocupações',
+    name: 'Contratos',
     icon: 'build',
-    link: 'occupation'
+    link: 'contract'
   }, {
-    name: 'Configurações',
+    name: 'Materiais',
     icon: 'settings',
-    link: 'configuration'
+    link: 'material'
   }];
 
   constructor(
@@ -82,7 +82,7 @@ export class MainComponent implements OnInit {
   ngOnInit() { }
 
   logout = () => {
-    let params = {
+    const params = {
       navigateTo: '/login'
     };
 

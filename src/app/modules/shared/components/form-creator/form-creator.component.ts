@@ -5,8 +5,8 @@ import { MAT_DIALOG_DATA, MatDialogRef, MatSnackBar } from '@angular/material';
 /**
  * Services
  */
-import { AuthenticationService } from './../../services/parse/authentication.service';
-import { CrudService } from '../../services/parse/crud.service';
+import { AuthenticationService } from './../../services/loopback/authentication.service';
+import { CrudService } from '../../services/loopback/crud.service';
 import { ObjectService } from '../../services/object.service';
 import { StringService } from '../../services/string.service';
 
@@ -114,7 +114,7 @@ export class FormCreatorComponent implements OnInit {
 
         resolve(optionsArray);
       }, err => {
-        this._auth.handleParseError(err, '');
+        this._auth.handleError(err, '');
       });
     } else {
       if (this.options.values.length > 0) {
