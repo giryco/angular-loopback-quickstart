@@ -1,3 +1,133 @@
-<p>
-  material-dialog works!
-</p>
+<h1 mat-dialog-title>{{title}}</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="materialDialogForm">
+    <fieldset formGroupName="materialGroup">
+      <mat-form-field>
+        <input matInput formControlName="cod_empresa" placeholder="Código da empresa" (keyup)="autocompleteCodEmpresa($event)">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="cod_produto" placeholder="Código do produto">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="dsc_produto" placeholder="Descrição do produto">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="cod_especificacao" placeholder="Código de expecificação">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="dsc_especificacao" placeholder="Descrição de especificação">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="cod_tamanho" placeholder="Código do tamanho">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="dsc_tamanho" placeholder="Descrição do tamanho">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="txt_especificacao_detalhada" placeholder="Especificação detalhada">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="cod_especificacao_tamanho" placeholder="Código de especificação do tamanho">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="dsc_especificacao_tamanho" placeholder="Descrição de especificação do tamanho">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="cod_material" placeholder="Código do material">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="dsc_material" placeholder="Descrição do material">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="dsc_material_detalhada" placeholder="Descrição detalhada do material">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="cod_unidade_medida" placeholder="Código de unidade de medida">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="vlr_venda" placeholder="Valor de venda">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="ind_material_eletrico" placeholder="Indicador de material elétrico">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="ind_componente_menor" placeholder="Indicador de componente menor">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="pct_sobre_preco_medio" placeholder="Porcentagem sobre preço médio">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="img_produto" placeholder="Imagem de produto">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="num_peso" placeholder="Número de peso">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="ind_cancelado" placeholder="Indicador de cancelado">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="ind_tipo_material" placeholder="Indicador de tipo de material">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="peso_km_condutor" placeholder="peso_km_condutor">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="cod_ncm" placeholder="Código NCM">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="cod_ex_tipi" placeholder="cod_ex_tipi">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="cod_genero" placeholder="Código de gênero">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="cod_tipo_sped" placeholder="cod_tipo_sped">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="cod_cest" placeholder="cod_cest">
+      </mat-form-field>
+      
+      <mat-form-field>
+        <input matInput formControlName="potencia_nominal" placeholder="Potência nominal">
+      </mat-form-field>
+    </fieldset>
+  </form>
+</div>
+
+<div mat-dialog-actions>
+  <button mat-raised-button (click)="onAccountDialogSubmit()" [disabled]="materialDialogForm.invalid">{{this.submitButton}}</button>
+</div>
+<!--
+  /*
+
+
+*/
+-->
