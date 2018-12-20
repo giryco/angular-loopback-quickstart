@@ -4,7 +4,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 /**
  * Components
  */
-import { ContractDialogComponent } from './contract-dialog/contract-dialog.component';
+import { AccountingSituationDialogComponent } from './accounting-situation-dialog/accounting-situation-dialog.component';
 
 /**
  * Services
@@ -12,11 +12,11 @@ import { ContractDialogComponent } from './contract-dialog/contract-dialog.compo
 import { CrudService } from '../../../shared/services/loopback/crud.service';
 
 @Component({
-    selector: 'app-contract',
-    templateUrl: './contract.component.html',
-    styleUrls: ['./contract.component.css']
+    selector: 'app-accounting-situation',
+    templateUrl: './accounting-situation.component.html',
+    styleUrls: ['./accounting-situation.component.css']
 })
-export class ContractComponent implements OnInit {
+export class AccountingSituationComponent implements OnInit {
     paramsToTableData: any;
     constructor(
         private _crud: CrudService,
@@ -31,7 +31,7 @@ export class ContractComponent implements OnInit {
     makeList = () => {
         this.paramsToTableData = {
             toolbar: {
-                title: 'Contratos',
+                title: 'Situações contábeis',
                 delete: {
                     icon: 'delete',
                     field: 'objectId',
@@ -44,20 +44,20 @@ export class ContractComponent implements OnInit {
                 }],
                 search: {
                   icon: 'search',
-                  propertiesToSearch: ['descricao', 'nm_usr', 'nm_usr_recisao', 'cd_recurso']
+                  propertiesToSearch: ['sg_sis', 'nm_usr']
                 }
             },
             list: {
-                route: 'Contratos',
+                route: 'SituacoesContabeis',
                 crudParams: {
                     order: [{
-                        field: 'descricao',
+                        field: 'sg_sis',
                         order: 'asc'
                     }]
                 },
                 columns: [{
-                    attribute: 'descricao',
-                    header: 'Descrição'
+                    attribute: 'sg_sis',
+                    header: 'Sigla do sistema'
                 }, {
                     attribute: 'nm_usr',
                     header: 'Nome do usuário'
@@ -81,7 +81,7 @@ export class ContractComponent implements OnInit {
 
     tableDataOutputReceiver = (e) => {
         if (e.trigger === 'add') {
-            const dialogRef = this._dialog.open(ContractDialogComponent, {
+            const dialogRef = this._dialog.open(AccountingSituationDialogComponent, {
                 width: '95%'
             });
 
@@ -93,7 +93,7 @@ export class ContractComponent implements OnInit {
         }
 
         if (e.trigger === 'listEdit') {
-            const dialogRef = this._dialog.open(ContractDialogComponent, {
+            const dialogRef = this._dialog.open(AccountingSituationDialogComponent, {
                 width: '95%',
                 data: e.response
             });
@@ -108,7 +108,7 @@ export class ContractComponent implements OnInit {
         if (e.trigger === '_delete') {
             this._crud
             .delete({
-                route: 'Contratos',
+                route: 'SituacoesContabeis',
                 containedIn: [{
                     property: 'objectId',
                     valueArray: e.response.arrayToDelete

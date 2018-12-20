@@ -27,21 +27,24 @@ export class AuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot, state:
     RouterStateSnapshot
-  ): Observable<boolean> | Promise<boolean> | boolean
-  {
-    // this._auth.setUser()
-    // .catch(error => {
-    //   this._router.navigate(['/login']);
-    // })
-    // .then(res => { console.log(res)
-    //   if(!res['id']) {
-    //     this._router.navigate(['/login']);
-    //   }
-    // }).catch( rej => {
-    //   this._snackbar.open('Você precisa estar logado para acessar essa área','',{
-    //     duration: 4000
-    //   })
-    // });
+  ): Observable<boolean> | Promise<boolean> | boolean {
+    this._auth.setUser()
+    .catch(error => {
+      this._snackbar.open('Você precisa estar logado para acessar essa área', '', {
+        duration: 4000
+      });
+      this._router.navigate(['/login']);
+    })
+    .then(res => {
+      if (!res['id']) {
+        this._router.navigate(['/login']);
+      }
+    }).catch( rej => {
+      this._snackbar.open('Você precisa estar logado para acessar essa área', '', {
+        duration: 4000
+      });
+      this._router.navigate(['/login']);
+    });
 
     return true;
   }

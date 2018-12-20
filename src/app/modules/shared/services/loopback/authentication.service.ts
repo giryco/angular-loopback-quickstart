@@ -104,10 +104,13 @@ export class AuthenticationService {
 
   logout = (params = undefined) => {
     let navigateTo;
-    params.navigateTo ? navigateTo = params.navigateTo : navigateTo = '/login';
-    const userData = JSON.parse(JSON.parse(sessionStorage.user)._body);
-    this._http.post(this.authUrl + '/Users/logout?access_token=' + userData.id, '');
-    sessionStorage.clear();
+    (params && params.navigateTo) ? navigateTo = params.navigateTo : navigateTo = '/login';
+
+    if (sessionStorage.user) {
+      const userData = JSON.parse(JSON.parse(sessionStorage.user)._body);
+      this._http.post(this.authUrl + '/Users/logout?access_token=' + userData.id, '');
+      sessionStorage.clear();
+    }
     this._router.navigate([navigateTo]);
   }
 

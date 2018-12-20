@@ -72,17 +72,26 @@ export class CrudService {
       for (let i = 0; i < match['properties']['length']; i++) {
         if (i === 0) {
           if (match['properties']['length'] > 1) {
-            queryWhere = ', "where":{"or":{"' + match['properties'][i] + '":{"like":".*' + match['value'] + '.*"},';
+            queryWhere = ', "where":{"or":[{"' + match['properties'][i] + '":{"regexp":"/' + match['value'] + '?/i"}},';
+            // queryWhere = ', "where":{"or":[{"' + match['properties'][i] + '":{"like":"%' + match['value'] + '%"}},';
           } else {
-            queryWhere = ', "where":{"' + match['properties'][i] + '":{"like":".*' + match['value'] + '.*"},';
+            queryWhere = ', "where":{"' + match['properties'][i] + '":{"regexp":"/' + match['value'] + '?/i"},';
+            //// queryWhere = ', "where":{"' + match['properties'][i] + '":{"like":"%' + match['value'] + '%"},';
           }
 
           continue;
         }
-        queryWhere += '"' + match['properties'][i] + '":{"like":"(?i)' + match['value'] + '.*"},';
+
+        if (match['properties']['length'] > 1) {
+          queryWhere += '{"' + match['properties'][i] + '":{"regexp":"/' + match['value'] + '?/i"}},';
+          // queryWhere += '{"' + match['properties'][i] + '":{"like":"%' + match['value'] + '%"}},';
+        } else {
+          queryWhere += '"' + match['properties'][i] + '":{"regexp":"/' + match['value'] + '?/i"},';
+          // queryWhere += '"' + match['properties'][i] + '":{"like":"%' + match['value'] + '%"},';
+        }
       }
       if (match['properties']['length'] > 1) {
-        match = queryWhere.substring(0, queryWhere.length - 1) + '}}';
+        match = queryWhere.substring(0, queryWhere.length - 1) + ']}';
       } else {
         match = queryWhere.substring(0, queryWhere.length - 1) + '}';
       }

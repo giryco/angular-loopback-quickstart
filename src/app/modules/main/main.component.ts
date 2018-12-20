@@ -30,16 +30,28 @@ export class MainComponent implements OnInit {
     link: ['dashboard']
   }, {
     name: 'Plano de Contas',
-    icon: 'people',
+    icon: 'money',
     link: ['account']
   }, {
     name: 'Contratos',
-    icon: 'build',
+    icon: 'assignment',
     link: 'contract'
   }, {
+    name: 'Fornecedores',
+    icon: 'business',
+    link: 'provider'
+  }, {
     name: 'Materiais',
-    icon: 'settings',
+    icon: 'build',
     link: 'material'
+  }, {
+    name: 'Locais de almoxarifado',
+    icon: 'shopping_cart',
+    link: 'warehouse-location'
+  }, {
+    name: 'Situações Contábeis',
+    icon: 'attach_money',
+    link: 'accounting-situation'
   }];
 
   constructor(

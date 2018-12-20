@@ -30,6 +30,8 @@ export class LoginComponent implements OnInit {
       user: new FormControl(null),
       password: new FormControl(null)
     });
+
+    this._auth.logout();
   }
 
   onLoginSubmit = () => {
