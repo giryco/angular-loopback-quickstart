@@ -9,6 +9,23 @@ mat-icon {
     vertical-align: middle;
 }
 
+/* Style over ngxchar: start */
+
+.advanced-pie-legend .legend-items-container .legend-items {
+    padding: 20px;
+    height: 70px;
+}
+
+.advanced-pie-legend .legend-items-container .legend-items .legend-item .item-value {
+    line-height: 2;
+}
+
+.advanced-pie-legend .legend-items-container .legend-items {
+    overflow-y: hidden !important;
+}
+
+/* Style over ngxchar: end */
+
 .clickable-button {
     cursor: pointer;
 }

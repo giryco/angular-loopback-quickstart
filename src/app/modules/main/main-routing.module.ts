@@ -6,11 +6,13 @@ import { Routes, RouterModule } from '@angular/router';
  */
 import { AccountComponent } from './components/account/account.component';
 import { AccountingSituationComponent } from './components/accounting-situation/accounting-situation.component';
+import { ClientComponent } from './components/client/client.component';
 import { ContractComponent } from './components/contract/contract.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { MainComponent } from './main.component';
 import { MaterialComponent } from './components/material/material.component';
 import { ProviderComponent } from './components/provider/provider.component';
+import { StockTypeComponent } from './components/stock-type/stock-type.component';
 import { WarehouseLocationComponent } from './components/warehouse-location/warehouse-location.component';
 
 const routes: Routes = [{
@@ -39,6 +41,12 @@ const routes: Routes = [{
   }, {
     path: 'warehouse-location',
     component: WarehouseLocationComponent
+  }, {
+    path: 'stock-type',
+    component: StockTypeComponent
+  }, {
+    path: 'client',
+    component: ClientComponent
   }]
 }];
 

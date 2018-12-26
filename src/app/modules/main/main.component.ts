@@ -29,9 +29,13 @@ export class MainComponent implements OnInit {
     icon: 'home',
     link: ['dashboard']
   }, {
-    name: 'Plano de Contas',
+    name: 'Plano de contas',
     icon: 'money',
     link: ['account']
+  }, {
+    name: 'Clientes',
+    icon: 'people',
+    link: 'client'
   }, {
     name: 'Contratos',
     icon: 'assignment',
@@ -49,9 +53,13 @@ export class MainComponent implements OnInit {
     icon: 'shopping_cart',
     link: 'warehouse-location'
   }, {
-    name: 'Situações Contábeis',
+    name: 'Situações contábeis',
     icon: 'attach_money',
     link: 'accounting-situation'
+  }, {
+    name: 'Tipo de estoque',
+    icon: 'remove_shopping_cart',
+    link: 'stock-type'
   }];
 
   constructor(

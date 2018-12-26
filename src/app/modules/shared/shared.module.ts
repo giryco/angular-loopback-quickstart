@@ -12,6 +12,8 @@ import { AuthGuard } from './guards/auth.guard';
  */
 import { ComponentModule } from './component.module';
 import { MaterialModule } from './material.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { NgxEchartsModule } from 'ngx-echarts';
 
 /**
  * Pipes
@@ -41,10 +43,14 @@ import { TableDataComponent } from './components/table-data/table-data.component
     ComponentModule,
     MaterialModule,
     ReactiveFormsModule,
+    NgxChartsModule,
+    NgxEchartsModule
   ], exports: [
     ComponentModule,
     FormatDateDmyPipe,
     MaterialModule,
+    NgxChartsModule,
+    NgxEchartsModule,
     NumberToLetterPipe,
     ReactiveFormsModule,
     DeleteConfirmComponent,

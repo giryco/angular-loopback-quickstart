@@ -35,7 +35,7 @@ export class CrudService {
 
     let group, limit, match, containedIn, message, order, route, skip, where, query, queryWhere = '';
     params.group ? group = params.group : group = '';
-    params.limit ? limit = '"limit":' + params.limit : limit = '"limit":1000';
+    params.limit ? limit = '"limit":' + params.limit : limit = '';
     params.containedIn ? containedIn = params.containedIn : containedIn = '';
     params.match ? match = params.match : match = '';
     params.message ? message = params.message : message = 'Sucesso';

@@ -1,0 +1,60 @@
+<mat-card class="container">
+  <app-table-data [params]="paramsToTableData" (tableDataOutput)="tableDataOutputReceiver($event)"></app-table-data>
+</mat-card>
+
+<ngx-charts-bar-vertical
+  *ngIf="single.length > 0" 
+  [view]="view" 
+  [scheme]="colorScheme" 
+  [results]="single" 
+  [gradient]="gradient" 
+  [xAxis]="showXAxis"
+  [yAxis]="showYAxis" 
+  [legend]=false
+  [showXAxisLabel]="showXAxisLabel" 
+  [showYAxisLabel]="showYAxisLabel"
+  [xAxisLabel]="xAxisLabel" 
+  [yAxisLabel]="yAxisLabel" 
+  (select)="onChartSelect($event)">
+</ngx-charts-bar-vertical>
+
+<ngx-charts-pie-chart
+  *ngIf="single.length > 0" 
+  [view]="view" 
+  [scheme]="colorScheme" 
+  [results]="single" 
+  [gradient]="gradient" 
+  [legend]=false
+  [animations]=true
+  [labels]=true
+  [maxLabelLength]=10
+  (select)="onChartSelect($event)">
+</ngx-charts-pie-chart>
+
+<ngx-charts-advanced-pie-chart
+  *ngIf="single.length > 0" 
+  [view]="view" 
+  [scheme]="colorScheme" 
+  [results]="single" 
+  [gradient]="gradient" 
+  [animations]=true
+  (select)="onChartSelect($event)">
+</ngx-charts-advanced-pie-chart>
+
+<ngx-charts-pie-grid
+  *ngIf="single.length > 0" 
+  [view]="view" 
+  [scheme]="colorScheme" 
+  [results]="single" 
+  [animations]=true
+  (select)="onChartSelect($event)">
+</ngx-charts-pie-grid>
+
+<ngx-charts-bubble-chart
+  *ngIf="single.length > 0" 
+  [view]="view" 
+  [scheme]="colorScheme" 
+  [results]="single" 
+  [animations]=true
+  (select)="onChartSelect($event)">
+</ngx-charts-bubble-chart>

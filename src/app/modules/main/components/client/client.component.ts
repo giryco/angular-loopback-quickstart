@@ -4,7 +4,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 /**
  * Components
  */
-import { AccountDialogComponent } from './account-dialog/account-dialog.component';
+import { ClientDialogComponent } from './client-dialog/client-dialog.component';
 
 /**
  * Services
@@ -12,17 +12,56 @@ import { AccountDialogComponent } from './account-dialog/account-dialog.componen
 import { CrudService } from '../../../shared/services/loopback/crud.service';
 
 @Component({
-    selector: 'app-account',
-    templateUrl: './account.component.html',
-    styleUrls: ['./account.component.css']
+    selector: 'app-client',
+    templateUrl: './client.component.html',
+    styleUrls: ['./client.component.css']
 })
-export class AccountComponent implements OnInit {
+export class ClientComponent implements OnInit {
     paramsToTableData: any;
+
+    /**
+     * Properties to chart: start
+     */
+    single = [];
+    multi: any[];
+
+    view: any[] = [700, 400];
+
+    // options
+    showXAxis = true;
+    showYAxis = true;
+    gradient = false;
+    showLegend = true;
+    showXAxisLabel = true;
+    xAxisLabel = 'Estado';
+    showYAxisLabel = true;
+    yAxisLabel = 'Clientes';
+
+    colorScheme = {
+        domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
+    };
+    /**
+     * Properties to chart: end
+     */
+
     constructor(
         private _crud: CrudService,
         public _dialog: MatDialog,
         public matsnackbar: MatSnackBar
-    ) { }
+    ) {
+        this._crud.readFromRoute({
+            route: 'Clientes/chartOverUF'
+        }).then(res => {
+            res['response'].forEach(element => {
+                this.single.push({
+                    'name': element['attributes']['UF'],
+                    'value': element['attributes']['TOTAL']
+                });
+            });
+
+            Object.assign(this, this.single);
+        });
+    }
 
     ngOnInit() {
         this.makeList();
@@ -31,7 +70,7 @@ export class AccountComponent implements OnInit {
     makeList = () => {
         this.paramsToTableData = {
             toolbar: {
-                title: 'Plano de Contas',
+                title: 'Clientes',
                 delete: {
                     icon: 'delete',
                     field: 'objectId',
@@ -44,23 +83,23 @@ export class AccountComponent implements OnInit {
                 }],
                 search: {
                     icon: 'search',
-                    propertiesToSearch: ['cd_conta', 'nome_conta']
+                    propertiesToSearch: ['cd_cliente', 'descricao']
                 }
             },
             list: {
-                route: 'PlanoContas',
+                route: 'Clientes',
                 crudParams: {
                     order: [{
-                        field: 'cd_conta',
+                        field: 'cd_cliente',
                         order: 'asc'
                     }]
                 },
                 columns: [{
-                    attribute: 'nome_conta',
-                    header: 'Nome de conta'
+                    attribute: 'cd_cliente',
+                    header: 'Código'
                 }, {
-                    attribute: 'credito_encerrado',
-                    header: 'Crédito encerrado'
+                    attribute: 'descricao',
+                    header: 'Descrição'
                 }],
                 actionButton: [{
                     type: 'icon',
@@ -81,7 +120,7 @@ export class AccountComponent implements OnInit {
 
     tableDataOutputReceiver = (e) => {
         if (e.trigger === 'add') {
-            const dialogRef = this._dialog.open(AccountDialogComponent, {
+            const dialogRef = this._dialog.open(ClientDialogComponent, {
                 width: '95%'
             });
 
@@ -93,7 +132,7 @@ export class AccountComponent implements OnInit {
         }
 
         if (e.trigger === 'listEdit') {
-            const dialogRef = this._dialog.open(AccountDialogComponent, {
+            const dialogRef = this._dialog.open(ClientDialogComponent, {
                 width: '95%',
                 data: e.response
             });
@@ -107,25 +146,29 @@ export class AccountComponent implements OnInit {
 
         if (e.trigger === '_delete') {
             this._crud
-            .delete({
-                route: 'PlanoContas',
-                containedIn: [{
-                    property: 'objectId',
-                    valueArray: e.response.arrayToDelete
-                }]
-            })
-            .catch(rej => {
-                console.log(rej);
-            })
-            .then(res => {
-                this.matsnackbar.open(res['message'], '', {
-                    duration: 3000
-                });
+                .delete({
+                    route: 'Clientes',
+                    containedIn: [{
+                        property: 'objectId',
+                        valueArray: e.response.arrayToDelete
+                    }]
+                })
+                .catch(rej => {
+                    console.log(rej);
+                })
+                .then(res => {
+                    this.matsnackbar.open(res['message'], '', {
+                        duration: 3000
+                    });
 
-                setTimeout(() => {
-                    this.makeList();
-                }, 1000);
-            });
+                    setTimeout(() => {
+                        this.makeList();
+                    }, 1000);
+                });
         }
+    }
+
+    onChartSelect(event) {
+      console.log(event);
     }
 }

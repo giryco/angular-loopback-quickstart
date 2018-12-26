@@ -4,7 +4,7 @@ import { MatDialog, MatSnackBar } from '@angular/material';
 /**
  * Components
  */
-import { AccountDialogComponent } from './account-dialog/account-dialog.component';
+import { StockTypeDialogComponent } from './stock-type-dialog/stock-type-dialog.component';
 
 /**
  * Services
@@ -12,11 +12,11 @@ import { AccountDialogComponent } from './account-dialog/account-dialog.componen
 import { CrudService } from '../../../shared/services/loopback/crud.service';
 
 @Component({
-    selector: 'app-account',
-    templateUrl: './account.component.html',
-    styleUrls: ['./account.component.css']
+    selector: 'app-stock-type',
+    templateUrl: './stock-type.component.html',
+    styleUrls: ['./stock-type.component.css']
 })
-export class AccountComponent implements OnInit {
+export class StockTypeComponent implements OnInit {
     paramsToTableData: any;
     constructor(
         private _crud: CrudService,
@@ -31,7 +31,7 @@ export class AccountComponent implements OnInit {
     makeList = () => {
         this.paramsToTableData = {
             toolbar: {
-                title: 'Plano de Contas',
+                title: 'Tipos de Estoque',
                 delete: {
                     icon: 'delete',
                     field: 'objectId',
@@ -44,23 +44,23 @@ export class AccountComponent implements OnInit {
                 }],
                 search: {
                     icon: 'search',
-                    propertiesToSearch: ['cd_conta', 'nome_conta']
+                    propertiesToSearch: ['cd_tp_estoque', 'ds_tp_estoque']
                 }
             },
             list: {
-                route: 'PlanoContas',
+                route: 'TiposEstoque',
                 crudParams: {
                     order: [{
-                        field: 'cd_conta',
+                        field: 'cd_tp_estoque',
                         order: 'asc'
                     }]
                 },
                 columns: [{
-                    attribute: 'nome_conta',
-                    header: 'Nome de conta'
+                    attribute: 'cd_tp_estoque',
+                    header: 'Código'
                 }, {
-                    attribute: 'credito_encerrado',
-                    header: 'Crédito encerrado'
+                    attribute: 'ds_tp_estoque',
+                    header: 'Descrição'
                 }],
                 actionButton: [{
                     type: 'icon',
@@ -81,7 +81,7 @@ export class AccountComponent implements OnInit {
 
     tableDataOutputReceiver = (e) => {
         if (e.trigger === 'add') {
-            const dialogRef = this._dialog.open(AccountDialogComponent, {
+            const dialogRef = this._dialog.open(StockTypeDialogComponent, {
                 width: '95%'
             });
 
@@ -93,7 +93,7 @@ export class AccountComponent implements OnInit {
         }
 
         if (e.trigger === 'listEdit') {
-            const dialogRef = this._dialog.open(AccountDialogComponent, {
+            const dialogRef = this._dialog.open(StockTypeDialogComponent, {
                 width: '95%',
                 data: e.response
             });
@@ -108,7 +108,7 @@ export class AccountComponent implements OnInit {
         if (e.trigger === '_delete') {
             this._crud
             .delete({
-                route: 'PlanoContas',
+                route: 'TiposEstoque',
                 containedIn: [{
                     property: 'objectId',
                     valueArray: e.response.arrayToDelete
