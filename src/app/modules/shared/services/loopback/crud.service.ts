@@ -33,7 +33,7 @@ export class CrudService {
   readFromRoute = (params) => new Promise((resolve, reject) => {
     const userData = JSON.parse(JSON.parse(sessionStorage.user)._body);
 
-    let group, limit, match, containedIn, message, order, route, skip, where, query, queryWhere = '';
+    let group, limit, match, containedIn, message, order, route, skip, specificToApi, where, query, queryWhere = '';
     params.group ? group = params.group : group = '';
     params.limit ? limit = '"limit":' + params.limit : limit = '';
     params.containedIn ? containedIn = params.containedIn : containedIn = '';
@@ -42,6 +42,7 @@ export class CrudService {
     params.order ? order = params.order : order = '';
     params.skip ? skip = ', "skip":' + params.skip : skip = '';
     params.where ? where = params.where : where = '';
+    params.specificToApi ? specificToApi = params.specificToApi : specificToApi = '';
     route = params.route;
 
     if (where) {
@@ -105,7 +106,7 @@ export class CrudService {
 
     this._http
       .get(
-        environment.crudServiceUrl + '/' + params.route + '?access_token=' + userData.id + '&filter=' + query
+        environment.crudServiceUrl + '/' + params.route + '?access_token=' + userData.id + '&filter=' + query + specificToApi
       ).subscribe(res => {
         const response = [];
         res = JSON.parse(res['_body']);

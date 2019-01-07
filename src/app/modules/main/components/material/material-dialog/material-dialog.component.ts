@@ -8,10 +8,6 @@ import { MatSnackBar, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 import { AuthenticationService } from './../../../../shared/services/loopback/authentication.service';
 import { CrudService } from './../../../../shared/services/loopback/crud.service';
 
-/**
- * Validators
- */
-import { ValidateCpf } from 'src/app/modules/shared/validators/cpf.validator';
 
 @Component({
   selector: 'app-material-dialog',
@@ -86,7 +82,7 @@ export class MaterialDialogComponent implements OnInit {
       this.submitButton = 'Atualizar';
 
       this._crud.readFromRoute({
-        route: 'Material',
+        route: 'Materiais/resultadoConsulta',
         order: ['objectId', 'desc'],
         where: [{
           property: 'objectId',
@@ -111,7 +107,7 @@ export class MaterialDialogComponent implements OnInit {
   onMaterialDialogSubmit = () => {
     if (this.submitToUpdate) {
       const params = {
-        route: 'Material',
+        route: 'Materiais/resultadoConsulta',
         objectToUpdate: this.materialDialogForm.value,
         where: {
           property: 'objectId',
@@ -141,7 +137,7 @@ export class MaterialDialogComponent implements OnInit {
       };
 
       const paramsToMaterial = {
-        route: 'Material',
+        route: 'Materiais/resultadoConsulta',
         objectToCreateUser: this.materialDialogForm.value.materialGroup
       };
       console.log(paramsToMaterial);

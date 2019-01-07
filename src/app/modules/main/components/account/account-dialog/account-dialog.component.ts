@@ -51,7 +51,7 @@ export class AccountDialogComponent implements OnInit {
         'role': [null, [Validators.required]],
       }),
       'userGroup': this.fb.group({
-        'email': [null, [Validators.email, Validators.required]],
+        'name': [null, [Validators.maxLength(145), Validators.required]],
         'password': [null, [Validators.required]],
       })
     });

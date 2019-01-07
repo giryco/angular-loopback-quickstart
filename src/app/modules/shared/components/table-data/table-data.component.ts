@@ -102,13 +102,14 @@ export class TableDataComponent implements OnChanges {
   }
 
   setListContentByParseRoute = () => {
-    let group, limit, order, search, skip, where;
+    let group, limit, order, search, skip, where, specificToApi;
     search = undefined;
 
     if (this.params.list.crudParams) {
       this.params.list.crudParams.group ? group = this.params.list.crudParams.group : group = undefined;
       this.params.list.crudParams.order ? order = this.params.list.crudParams.order : order = undefined;
       this.params.list.crudParams.where ? where = this.params.list.crudParams.where : where = undefined;
+      this.params.list.crudParams.specificToApi ? specificToApi = this.params.list.crudParams.specificToApi : specificToApi = undefined;
     }
 
     this.pagination ? skip = (this.currentPage - 1) * this.qtSelected : skip = undefined;
@@ -128,6 +129,7 @@ export class TableDataComponent implements OnChanges {
       match: search,
       group: group,
       order: order,
+      specificToApi: specificToApi,
       where: where,
     })
     .then(res => {

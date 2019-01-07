@@ -47,12 +47,9 @@ export class MaterialComponent implements OnInit {
                 }
             },
             list: {
-                route: 'Materiais',
+                route: 'Materiais/resultadoConsulta',
                 crudParams: {
-                    order: [{
-                        field: 'descricao',
-                        order: 'asc'
-                    }]
+                    specificToApi: '&descricaoMaterial=tes&codigoEmpresa=1&lim=5'
                 },
                 columns: [{
                     attribute: 'cod_produto',
@@ -107,7 +104,7 @@ export class MaterialComponent implements OnInit {
         if (e.trigger === '_delete') {
             this._crud
             .delete({
-                route: 'Materiais',
+                route: 'Materiais/resultadoConsulta',
                 containedIn: [{
                     property: 'objectId',
                     valueArray: e.response.arrayToDelete
