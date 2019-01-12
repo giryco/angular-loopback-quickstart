@@ -68,7 +68,7 @@ export class TableDataComponent implements OnChanges {
     if (this.params.actionbar && this.params.actionbar.quantity) { this.setActionbarQuantity(); }
     if (this.params.toolbar && this.params.toolbar.search) { this.search = this.params.toolbar.search; }
     if (this.params.toolbar && this.params.toolbar.title) { this.title = this.params.toolbar.title; }
-    this.searchString = '';
+    // this.searchString = '';
 
     if (this.isLoading) {
       this.setListContent();
@@ -157,7 +157,7 @@ export class TableDataComponent implements OnChanges {
         this.setListStructure();
       } else {
         this._crud.countFromRoute({
-          route: this.params.list.route
+          route: this.params.list.routeToCount
         }).then(resolve => {
           this.total = resolve['response'];
           this.checkPagination();

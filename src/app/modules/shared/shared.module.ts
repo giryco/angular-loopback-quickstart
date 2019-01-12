@@ -34,6 +34,7 @@ import { ObjectService } from './services/object.service';
  */
 import { DeleteConfirmComponent } from './components/delete-confirm/delete-confirm.component';
 import { FormCreatorComponent } from './components/form-creator/form-creator.component';
+import { GoogleMapComponent } from './google-map/google-map.component';
 import { SearchDialogComponent } from './components/search-dialog/search-dialog.component';
 import { TableDataComponent } from './components/table-data/table-data.component';
 
@@ -48,6 +49,7 @@ import { TableDataComponent } from './components/table-data/table-data.component
   ], exports: [
     ComponentModule,
     FormatDateDmyPipe,
+    GoogleMapComponent,
     MaterialModule,
     NgxChartsModule,
     NgxEchartsModule,
@@ -61,6 +63,7 @@ import { TableDataComponent } from './components/table-data/table-data.component
     DeleteConfirmComponent,
     FormCreatorComponent,
     FormatDateDmyPipe,
+    GoogleMapComponent,
     NumberToLetterPipe,
     SearchDialogComponent,
     TableDataComponent

@@ -43,20 +43,22 @@ export class MaterialComponent implements OnInit {
                     trigger: 'add'
                 }],
                 search: {
-                    icon: 'search'
+                    icon: 'search',
+                    propertiesToSearch: ['COD_MATERIAL', 'DSC_MATERIAL']
                 }
             },
             list: {
                 route: 'Materiais/resultadoConsulta',
+                routeToCount: 'Materiais/count',
                 crudParams: {
-                    specificToApi: '&descricaoMaterial=tes&codigoEmpresa=1&lim=5'
+                    specificToApi: '&descricaoMaterial=$^$match:^:a$^$&codigoEmpresa=1&lim=$^$limit$^$&skip=$^$skip$^$'
                 },
                 columns: [{
-                    attribute: 'cod_produto',
-                    header: 'Código'
+                    attribute: 'COD_MATERIAL',
+                    header: 'Código de material'
                 }, {
-                    attribute: 'dsc_produto',
-                    header: 'Descrição'
+                    attribute: 'DSC_MATERIAL',
+                    header: 'Descrição de material'
                 }],
                 actionButton: [{
                     type: 'icon',

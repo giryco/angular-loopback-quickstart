@@ -33,7 +33,9 @@ export class CrudService {
   readFromRoute = (params) => new Promise((resolve, reject) => {
     const userData = JSON.parse(JSON.parse(sessionStorage.user)._body);
 
-    let group, limit, match, containedIn, message, order, route, skip, specificToApi, where, query, queryWhere = '';
+    let group, limit, match, containedIn, message, order, route, skip, specificToApi,
+    specificToApiArray, specificToApiTreated = '', where, query, queryWhere = '';
+
     params.group ? group = params.group : group = '';
     params.limit ? limit = '"limit":' + params.limit : limit = '';
     params.containedIn ? containedIn = params.containedIn : containedIn = '';
@@ -96,9 +98,43 @@ export class CrudService {
       } else {
         match = queryWhere.substring(0, queryWhere.length - 1) + '}';
       }
-
-      console.log(83);
     }
+
+    specificToApiArray = specificToApi.split('$^$');
+    console.log(params);
+    specificToApiArray.forEach(element => {
+      if (element === 'limit') {
+        specificToApiTreated += limit.replace('"limit":', '');
+        limit = '';
+      } else if (element === 'where') {
+        specificToApiTreated += where[0]['value'];
+        where = '';
+      } else if (element === 'match') {
+        specificToApiTreated += params.match.value;
+        match = '';
+      } else if (element === 'skip') {
+        if (params.skip) {
+          specificToApiTreated += params.skip;
+          skip = '';
+        }
+      } else if (element.match(/limit:\^:/gi)) {
+        limit ? specificToApiTreated += limit : specificToApiTreated += element.split(':^:')[1];
+        limit = '';
+      } else if (element.match(/where:\^:/gi)) {
+        where ? specificToApiTreated += where[0]['value'] : specificToApiTreated += element.split(':^:')[1];
+        where = '';
+      } else if (element.match(/match:\^:/gi)) {
+        match ? specificToApiTreated += params.match.value : specificToApiTreated += element.split(':^:')[1];
+        match = '';
+      } else if (element.match(/skip:\^:/gi)) {
+        if (params.skip) {
+          skip ? specificToApiTreated += params.skip : specificToApiTreated += element.split(':^:')[1];
+          skip = '';
+        }
+      } else {
+        specificToApiTreated += element;
+      }
+    });
 
     query = limit + skip + where + match;
     query = '{' + query + '}';
@@ -106,7 +142,7 @@ export class CrudService {
 
     this._http
       .get(
-        environment.crudServiceUrl + '/' + params.route + '?access_token=' + userData.id + '&filter=' + query + specificToApi
+        environment.crudServiceUrl + '/' + route + '?access_token=' + userData.id  + specificToApiTreated + '&filter=' + query
       ).subscribe(res => {
         const response = [];
         res = JSON.parse(res['_body']);
@@ -248,7 +284,7 @@ export class CrudService {
 
     this._http
       .get(
-        environment.crudServiceUrl + '/' + params.route + '/count?access_token=' + userData.id
+        environment.crudServiceUrl + '/' + params.route + '?access_token=' + userData.id
       ).subscribe(res => {
         res = JSON.parse(res['_body']);
 
