@@ -5,6 +5,6 @@
 
 export const environment = {
   production: false,
-  authenticationServiceUrl: 'http://10.1.1.4:3000/api',
-  crudServiceUrl: 'http://10.1.1.4:3000/api'
+  authenticationServiceUrl: 'http://localhost:3000/api',
+  crudServiceUrl: 'http://localhost:3000/api'
 };
