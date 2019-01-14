@@ -115,11 +115,11 @@ export class GoogleMapComponent implements OnChanges {
     this.markers.push(marker);
 
     google.maps.event.addListener(marker, 'click', () => {
-      this.markerSettings(marker);
+      this.markerClicked(marker);
     });
 
     google.maps.event.addListener(marker, 'dragend', () => {
-      this.markerSettings(marker);
+      this.markerDragged(marker);
     });
 
     this.googleMapDataOutput.emit({
@@ -128,9 +128,16 @@ export class GoogleMapComponent implements OnChanges {
     });
   }
 
-  markerSettings = (marker) => {
+  markerClicked = (marker) => {
     this.googleMapDataOutput.emit({
       trigger: 'clickedMarker',
+      response: marker
+    });
+  }
+
+  markerDragged = (marker) => {
+    this.googleMapDataOutput.emit({
+      trigger: 'draggedMarker',
       response: marker
     });
   }
