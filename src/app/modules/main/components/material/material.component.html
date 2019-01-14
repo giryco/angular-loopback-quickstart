@@ -3,5 +3,5 @@
 </mat-card> -->
 
 <mat-card class="container">
-  <app-google-map [params]="{apiKey: 'AIzaSyCDJEsq8Xc47duQw-C4IWW-W4aPiEnGjdk'}"></app-google-map>
+  <app-google-map [params]="paramsToGoogleMap" (googleMapDataOutput)="test($event);"></app-google-map>
 </mat-card>

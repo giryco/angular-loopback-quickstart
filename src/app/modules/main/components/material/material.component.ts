@@ -17,7 +17,9 @@ import { CrudService } from '../../../shared/services/loopback/crud.service';
     styleUrls: ['./material.component.css']
 })
 export class MaterialComponent implements OnInit {
+    paramsToGoogleMap: any;
     paramsToTableData: any;
+
     constructor(
         private _crud: CrudService,
         public _dialog: MatDialog,
@@ -26,6 +28,7 @@ export class MaterialComponent implements OnInit {
 
     ngOnInit() {
         this.makeList();
+        this.makeGoogleMap();
     }
 
     makeList = () => {
@@ -73,6 +76,15 @@ export class MaterialComponent implements OnInit {
             },
             actionbar: {
                 quantity: 5
+            }
+        };
+    }
+
+    makeGoogleMap = () => {
+        this.paramsToGoogleMap = {
+            marker: {
+                currentLocation: false,
+                multiple: false
             }
         };
     }
@@ -125,5 +137,9 @@ export class MaterialComponent implements OnInit {
                 }, 1000);
             });
         }
+    }
+
+    test = (e) => {
+        console.log(e);
     }
 }

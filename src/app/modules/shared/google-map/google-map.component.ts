@@ -1,10 +1,15 @@
 /**
  * IMPORTANT!
- * On /node_modules/@types/googlemaps/idnex.d.ts, add: declare module 'googlemaps';
+ * On /node_modules/@types/googlemaps/index.d.ts, add: declare module 'googlemaps';
  * Call Googlemaps api in index.html
  */
 
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
+/**
+ * @param params.marker.currentLocation: boolean
+ * @param params.
+*/
+
+import { Component, OnChanges, Input, ViewChild, Output, EventEmitter } from '@angular/core';
 
 import { } from 'googlemaps';
 
@@ -13,10 +18,12 @@ import { } from 'googlemaps';
   templateUrl: './google-map.component.html',
   styleUrls: ['./google-map.component.css']
 })
-export class GoogleMapComponent implements OnInit {
+export class GoogleMapComponent implements OnChanges {
   @Input() params: any;
+  @Output() googleMapDataOutput = new EventEmitter();
   @ViewChild('gmap') gmapElement: any;
 
+  isLoading: boolean;
   map: google.maps.Map;
   markers = [];
   labelIndex = 0;
@@ -26,11 +33,13 @@ export class GoogleMapComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-    this.ignition();
+  ngOnChanges() {
+    this.isLoading = true;
+    this.params ? this.ignition() : this.setErrors('params is required');
   }
 
   ignition = () => {
+    this.isLoading = false;
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
         this.latitude = position.coords.latitude;
@@ -71,7 +80,9 @@ export class GoogleMapComponent implements OnInit {
 
     // Add marker on click event over map without marker
     google.maps.event.addListener(this.map, 'click', event => {
-      this.addMarker(event.latLng, this.map);
+      if ((this.params && this.params.marker && this.params.marker.multiple) || (this.markers.length < 1)) {
+        this.addMarker(event.latLng, this.map);
+      }
     });
 
     // Remover marker on click event over existing marker
@@ -80,7 +91,13 @@ export class GoogleMapComponent implements OnInit {
     // });
 
     // Add a marker at the center of the map.
-    this.addMarker(firstLocation, this.map);
+    if (this.params) {
+      if (this.params.marker) {
+        if (this.params.marker.currentLocation) {
+          this.addMarker(firstLocation, this.map);
+        }
+      }
+    }
   }
 
   // Adds a marker to the map.
@@ -98,11 +115,27 @@ export class GoogleMapComponent implements OnInit {
     this.markers.push(marker);
 
     google.maps.event.addListener(marker, 'click', () => {
-      this.markerSettings(marker.getTitle());
+      this.markerSettings(marker);
+    });
+
+    google.maps.event.addListener(marker, 'dragend', () => {
+      this.markerSettings(marker);
+    });
+
+    this.googleMapDataOutput.emit({
+      trigger: 'addedMarker',
+      response: marker
     });
   }
 
-  markerSettings = (title) => {
-    alert('Think about what to do from here with marker ' + title);
+  markerSettings = (marker) => {
+    this.googleMapDataOutput.emit({
+      trigger: 'clickedMarker',
+      response: marker
+    });
+  }
+
+  setErrors = (msg) => {
+    console.log(msg);
   }
 }
